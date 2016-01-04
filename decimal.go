@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"strconv"
 	"strings"
+	"fmt"
 )
 
 const precision = 16
@@ -27,7 +28,7 @@ func (d *Decimal) MarshalText() (text []byte, err error) {
 		b.WriteString(strconv.FormatInt(d.Unscaled, 10))
 		b.WriteString(strings.Repeat("0", -d.Scale))
 	} else {
-		str := strconv.FormatInt(d.Unscaled, 10)
+		str := fmt.Sprintf("%03s", strconv.FormatInt(d.Unscaled, 10))
 		b.WriteString(str[:len(str)-d.Scale])
 		b.WriteString(".")
 		b.WriteString(str[len(str)-d.Scale:])
